@@ -1,40 +1,58 @@
 "use client";
 
 import { useState } from "react";
-import { filters } from "../utils/filters";
 
 export const FilterPanel = () => {
-  const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string }>({});
-
-  const handleFilterChange = (filterKey: string, value: string) => {
-    setSelectedFilters((prev) => ({
-      ...prev,
-      [filterKey]: value,
-    }));
-  };
+  const [status, setStatus] = useState("");
+  const [role, setRole] = useState("");
+  const [department, setDepartment] = useState("");
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow flex flex-wrap gap-4">
-      {filters.map((filter) => (
-        <div key={filter.id} className="flex flex-col">
-          <label htmlFor={filter.id} className="text-sm font-medium text-gray-700">
-            {filter.label}
-          </label>
-          <select
-            id={filter.id}
-            className="mt-1 block w-40 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            value={selectedFilters[filter.id] || ""}
-            onChange={(e) => handleFilterChange(filter.id, e.target.value)}
-          >
-            <option value="">All</option>
-            {filter.options.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-      ))}
+    <div className="bg-white p-6 rounded-2xl shadow-md flex flex-wrap gap-6 justify-between mb-8">
+      {/* Status */}
+      <div className="flex flex-col">
+        <label className="text-gray-700 font-medium mb-1">Status</label>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          className="border rounded-lg p-2 w-40 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">All</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+          <option value="Pending">Pending</option>
+        </select>
+      </div>
+
+      {/* Role */}
+      <div className="flex flex-col">
+        <label className="text-gray-700 font-medium mb-1">Role</label>
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="border rounded-lg p-2 w-40 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">All</option>
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+          <option value="Manager">Manager</option>
+        </select>
+      </div>
+
+      {/* Department */}
+      <div className="flex flex-col">
+        <label className="text-gray-700 font-medium mb-1">Department</label>
+        <select
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
+          className="border rounded-lg p-2 w-40 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">All</option>
+          <option value="Sales">Sales</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Engineering">Engineering</option>
+        </select>
+      </div>
     </div>
   );
 };
